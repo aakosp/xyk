@@ -2,9 +2,8 @@
 ####1.后台登录
 
 >Method: POST  
->Path: /login
->参数:   id:登录id，pwd:密码MD5
->
+>Path: /login  
+>参数:   id:登录id，pwd:密码MD5  
 >**返回数据描述: sessionId**
 
 ```json
@@ -26,7 +25,7 @@
 ####2.后台用户查询
 
 >Method: GET  
->Path: /admin/user/page/{pagenum}
+>Path: /admin/user/page/{pagenum}  
 >**返回数据描述: 用户信息** 
 
 ```json
@@ -55,7 +54,7 @@
 
 ####3.后台查询用户资料详情
 >Method: GET  
->Path: /admin/user/info/{id}
+>Path: /admin/user/info/{id}  
 >**返回数据描述: 用户信息详情** 
 >
 >PS: 
@@ -134,7 +133,7 @@
 
 ####3.1.前台查询用户资料详情
 >Method: GET  
->Path: /user/info/{id}
+>Path: /user/info/{id}  
 >**返回数据描述: 用户信息详情** 
 >
 >PS: 
@@ -212,8 +211,8 @@
 
 ####4.新建/修改后台用户资料详情
 
->Method: POST
->Path: /admin/user/update
+>Method: POST  
+>Path: /admin/user/update  
 >**返回数据描述:修改结果 ** 
 >
 >PS: 新建不传id
@@ -250,8 +249,8 @@
 
 ####5.删除用户
 
->Method: GET
->Path: /admin/user/delete/{id}
+>Method: GET  
+>Path: /admin/user/delete/{id}  
 >**返回数据描述:修改结果 ** 
 
 ```json
@@ -266,8 +265,8 @@
 
 ####5.查询养老条目详情
 
->Method: GET
->Path: /admin/user/pension/{id}
+>Method: GET  
+>Path: /admin/user/pension/{id}  
 >**返回数据描述:养老条目 ** 
 >
 >PS: 缴费合计=个人缴费+单位缴费
@@ -312,13 +311,13 @@
 
 ####6.创建/修改养老条目详情
 
->Method: GET
->Path: /admin/user/pension/{id}
+>Method: GET  
+>Path: /admin/user/pension/{id}  
 >**返回数据描述:养老条目 ** 
 >
->PS: 缴费合计=个人缴费+单位缴费
->新建不传id
->一条数据生成的具体条目数=month条，起始时间为beginDate
+>PS: 缴费合计=个人缴费+单位缴费  
+>新建不传id  
+>一条数据生成的具体条目数=month条，起始时间为beginDate  
 >也可以考虑用beginDate，endDate的形式，你考虑下怎么处理合适
 
 ```json
