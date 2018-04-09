@@ -32,13 +32,63 @@
 {
     "code": "0",
     "msg": "获取成功",
-    "data": [{
-        "id": 1,
-        "name": "张三",
-        "idCard": "410181198801015052",
-        "company": "XXX责任有限公司",
-        "expiry": "2018-06-10"
-    }]
+    "data": {
+        "page" : 1,
+        "total" : 5,
+        "user" : [{
+            "id": 1,
+            "name": "张三",
+            "idCard": "410181198801015052",
+            "company": "XXX责任有限公司",
+            "expiry": "2018-06-10"
+         },{
+            "id": 1,
+            "name": "张三",
+            "idCard": "410181198801015052",
+            "company": "XXX责任有限公司",
+            "expiry": "2018-06-10"
+         }]
+    }
+}
+```
+
+| 参数名     | 类型     | 描述   |
+| ------- | ------ | ---- |
+| id      | number | 用户id |
+| name    | string | 用户姓名 |
+| idCard  | string | 身份证号 |
+| company | string | 公司名称 |
+| expiry  | string | 失效时间 |
+
+
+
+####2.1后台用户搜索
+
+>Method: GET  
+>Path: /admin/user/search/{key}  
+>**返回数据描述: 用户信息** 
+
+```json
+{
+    "code": "0",
+    "msg": "获取成功",
+    "data": {
+        "page" : 1,
+        "total" : 5,
+        "user" : [{
+            "id": 1,
+            "name": "张三",
+            "idCard": "410181198801015052",
+            "company": "XXX责任有限公司",
+            "expiry": "2018-06-10"
+         },{
+            "id": 1,
+            "name": "张三",
+            "idCard": "410181198801015052",
+            "company": "XXX责任有限公司",
+            "expiry": "2018-06-10"
+         }]
+    }
 }
 ```
 
@@ -87,8 +137,7 @@
         "paymentSelf": 11111.12,
         "paymentCompany": 33335.11,
         "expiry": "2018-06-10"
-        "pension": [
-           {
+        "pension": [{
             "id": 1,
             "uid": 1,
             "beginDate": "2018-01",
@@ -104,8 +153,7 @@
             "paymentSelf": 222.2,
             "paymentCompany": 444.4,
             "paymentBase": 300
-           }
-        ]
+           }]
     }
 }
 ```
