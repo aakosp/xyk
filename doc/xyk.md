@@ -1,5 +1,5 @@
 
-####1.后台登录
+####1.后台登录  
 
 >Method: POST  
 >Path: /login  
@@ -22,7 +22,7 @@
 
 
 
-####2.后台用户查询
+####2.后台用户查询  
 
 >Method: GET  
 >Path: /admin/user/page/{pagenum}  
@@ -62,7 +62,7 @@
 
 
 
-####2.1后台用户搜索
+####2.1后台用户搜索  
 
 >Method: GET  
 >Path: /admin/user/search/{key}  
@@ -102,7 +102,8 @@
 
 
 
-####3.后台查询用户资料详情
+####3.后台查询用户资料详情  
+
 >Method: GET  
 >Path: /admin/user/info/{id}  
 >**返回数据描述: 用户信息详情** 
@@ -179,7 +180,8 @@
 
 
 
-####3.1.前台查询用户资料详情
+####3.1.前台查询用户资料详情  
+
 >Method: GET  
 >Path: /user/info/{id}  
 >**返回数据描述: 用户信息详情** 
@@ -257,7 +259,7 @@
 
 
 
-####4.新建/修改后台用户资料详情
+####4.新建/修改后台用户资料详情  
 
 >Method: POST  
 >Path: /admin/user/update  
@@ -295,7 +297,7 @@
 
 
 
-####5.删除用户
+####5.删除用户  
 
 >Method: GET  
 >Path: /admin/user/delete/{id}  
@@ -311,7 +313,7 @@
 
 
 
-####5.查询养老条目详情
+####6.查询养老条目详情  
 
 >Method: GET  
 >Path: /admin/user/pension/{id}  
@@ -357,7 +359,7 @@
 
 
 
-####6.创建/修改养老条目详情
+####7.创建/修改养老条目详情  
 
 >Method: GET  
 >Path: /admin/user/pension/{id}  
@@ -388,7 +390,7 @@
 
 
 
-###code值说明
+###code值说明  
 
 | code值 | 描述        |
 | ----- | --------- |
