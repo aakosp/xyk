@@ -26,7 +26,6 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-aop')
-    compile('org.springframework.boot:spring-boot-starter-webflux')
     compile('org.springframework.session:spring-session-core')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
