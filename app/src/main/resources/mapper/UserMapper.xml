@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyk.app.dao.UserDao">
+    <resultMap id="BaseResultMap" type="com.xyk.app.domian.User">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="id_card" property="idCard"/>
+        <result column="sex" property="sex"/>
+        <result column="birthday" property="birthday"/>
+        <result column="expiry" property="expiry"/>
+    </resultMap>
+
+    <parameterMap id="User" type="com.xyk.app.domian.User"/>
+    <parameterMap id="Admin" type="com.xyk.app.domian.Admin"/>
+
+    <sql id="Base_Column_List">
+		id, name, id_card, sex, birthday, expiry
+	</sql>
+
+    <select id="login" resultType="int" parameterType="com.xyk.app.domian.Admin">
+        select count(id)
+        from admin
+        where id = #{admin.name} and pwd = #{admin.pwd}
+    </select>
+
+    <select id="user" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from sb_user
+        where id = #{uid}
+    </select>
+
+    <select id="pageUser" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sb_user order by id
+        limit #{firstRow}, #{pageSize}
+    </select>
+
+    <select id="search" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sb_user
+        where name like concat(concat('%',#{key}),'%')
+        order by id
+        limit #{firstRow}, #{pageSize}
+    </select>
+
+    <insert id="save"  parameterType="com.xyk.app.domian.User">
+        insert into sb_user values(#{user.name}, #{user.idCard}, #{user.sex}, #{user.birthday}, #{user.expiry});
+    </insert>
+
+
+</mapper>
