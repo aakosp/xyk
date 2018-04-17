@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xyk.app.dao.UserDao">
-    <resultMap id="UserYlResultMap" type="com.xyk.app.domian.UserYl">
+    <resultMap id="UserYlResultMap" type="com.xyk.app.domian.UserPension">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="id_card" property="idCard"/>
@@ -46,13 +46,23 @@
 	</sql>
 
     <sql id="useryl_column_List">
-		id, name, id_card, sex, birthday, insurance_time, company, company_id, pay_month_due, pay_month,
-        payment_self_due, payment_company_due, payment_self, payment_company, expiry
+		name, id_card, sex, birthday, insurance_time, company, company_id, pay_month_due, pay_month,
+        payment_self_due, payment_company_due, payment_self, payment_company, expiry, create_time
 	</sql>
 
+    <sql id="useryl_id_column_List">
+        id,
+        <include refid="useryl_column_List"/>
+    </sql>
+
     <sql id="pension_column_List">
-		id, uid, beginDate, month, paymentSelf, paymentCompany, paymentBase
+		uid, begin_date, month, payment_self, payment_company, payment_base, create_time
 	</sql>
+
+    <sql id="pension_id_column_List">
+        id,
+        <include refid="pension_column_List"/>
+    </sql>
 
     <select id="login" resultType="int" parameterType="com.xyk.app.domian.Admin">
         select count(id)
@@ -60,7 +70,7 @@
         where id = #{admin.name} and pwd = #{admin.pwd}
     </select>
 
-    <select id="user" resultMap="UserYlResultMap" parameterType="java.lang.Long">
+    <select id="userInfo" resultMap="UserYlResultMap" parameterType="java.lang.Long">
         select
         <include refid="useryl_column_List"/>
         from sb_user
@@ -84,52 +94,59 @@
         from sb_user
         where name like concat(concat('%',#{key}),'%')
         order by id
-        limit #{firstRow}, #{pageSize}
     </select>
 
     <insert id="save" parameterType="com.xyk.app.domian.UserYl">
-        insert into sb_user values(#{user.name}, #{user.idCard}, #{user.sex}, #{user.birthday},
-        #{user.insuranceTime}, #{user.company}, #{user.companyId}, #{user.payMonthDue}, #{user.payMonth},
-        #{user.paymentSelfDue}, #{user.paymentCompanyDue}, #{user.paymentSelf}, #{user.paymentCompany}, #{user.expiry});
+        insert into sb_user
+        (<include refid="useryl_column_List"/>)
+        values(#{ name}, #{ idCard}, #{ sex}, #{ birthday},
+        #{ insuranceTime}, #{ company}, #{ companyId}, #{ payMonthDue}, #{ payMonth},
+        #{ paymentSelfDue}, #{ paymentCompanyDue}, #{ paymentSelf}, #{ paymentCompany}, #{ expiry}, current_timestamp);
     </insert>
 
     <update id="update" parameterType="com.xyk.app.domian.UserYl">
         UPDATE sb_user
         <trim prefix="set" suffixOverrides=",">
-            <if test="user.name!=null">name=#{user.name},</if>
-            <if test="user.idCard!=null">id_card=#{user.idCard},</if>
-            <if test="user.sex!=null">sex=#{user.sex},</if>
-            <if test="user.birthday!=null">birthday=#{user.birthday},</if>
-            <if test="user.insuranceTime!=null">insurance_time=#{user.insuranceTime},</if>
-            <if test="user.company!=null">company=#{user.company},</if>
-            <if test="user.companyId!=null">company_id=#{user.companyId},</if>
-            <if test="user.payMonthDue!=null">pay_month_due=#{user.payMonthDue},</if>
-            <if test="user.payMonth!=null">pay_month=#{user.payMonth},</if>
-            <if test="user.paymentSelfDue!=null">payment_self_due=#{user.paymentSelfDue},</if>
-            <if test="user.paymentCompanyDue!=null">payment_company_due=#{user.paymentCompanyDue},</if>
-            <if test="user.paymentSelf!=null">payment_self=#{user.paymentSelf},</if>
-            <if test="user.paymentCompany!=null">payment_company=#{user.paymentCompany},</if>
-            <if test="user.expiry!=null">expiry=#{user.expiry},</if>
+            <if test=" name!=null">name=#{ name},</if>
+            <if test=" idCard!=null">id_card=#{ idCard},</if>
+            <if test=" sex!=null">sex=#{ sex},</if>
+            <if test=" birthday!=null">birthday=#{ birthday},</if>
+            <if test=" insuranceTime!=null">insurance_time=#{ insuranceTime},</if>
+            <if test=" company!=null">company=#{ company},</if>
+            <if test=" companyId!=null">company_id=#{ companyId},</if>
+            <if test=" payMonthDue!=null">pay_month_due=#{ payMonthDue},</if>
+            <if test=" payMonth!=null">pay_month=#{ payMonth},</if>
+            <if test=" paymentSelfDue!=null">payment_self_due=#{ paymentSelfDue},</if>
+            <if test=" paymentCompanyDue!=null">payment_company_due=#{ paymentCompanyDue},</if>
+            <if test=" paymentSelf!=null">payment_self=#{ paymentSelf},</if>
+            <if test=" paymentCompany!=null">payment_company=#{ paymentCompany},</if>
+            <if test=" expiry!=null">expiry=#{expiry}</if>
         </trim>
-        WHERE id=#{user.id}
+        WHERE id=#{ id}
     </update>
 
-    <select id="pension" resultMap="PensionResultMap" parameterType="java.lang.Integer">
+    <select id="pension" resultMap="PensionResultMap" parameterType="java.lang.Long">
         select
-        <include refid="pension_column_List"/>
+        <include refid="pension_id_column_List"/>
         from pension
         where uid = #{uid}
         order by id
     </select>
 
-    <update id="update" parameterType="com.xyk.app.domian.Pension">
+    <insert id="savePension" parameterType="com.xyk.app.domian.Pension">
+        insert into pension
+        (<include refid="pension_column_List"/>)
+        values(#{uid}, #{beginDate}, #{month}, #{paymentSelf}, #{paymentCompany}, #{paymentBase}, current_timestamp);
+    </insert>
+
+    <update id="updatePension" parameterType="com.xyk.app.domian.Pension">
         UPDATE pension
         <trim prefix="set" suffixOverrides=",">
-            <if test="pension.beginDate!=null">begin_date=#{user.beginDate},</if>
-            <if test="pension.month!=null">month=#{user.month},</if>
-            <if test="pension.paymentSelf!=null">payment_self=#{user.paymentSelf},</if>
-            <if test="pension.paymentCompany!=null">payment_company=#{user.paymentCompany},</if>
-            <if test="pension.paymentBase!=null">payment_base=#{user.paymentBase},</if>
+            <if test="pension.beginDate!=null">begin_date=#{ beginDate},</if>
+            <if test="pension.month!=null">month=#{ month},</if>
+            <if test="pension.paymentSelf!=null">payment_self=#{ paymentSelf},</if>
+            <if test="pension.paymentCompany!=null">payment_company=#{ paymentCompany},</if>
+            <if test="pension.paymentBase!=null">payment_base=#{ paymentBase},</if>
         </trim>
         WHERE id=#{pension.id} and uid=#{pension.uid}
     </update>

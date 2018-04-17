@@ -1,10 +1,7 @@
 package com.xyk.app.service.impl;
 
 import com.xyk.app.dao.UserDao;
-import com.xyk.app.domian.Admin;
-import com.xyk.app.domian.Pension;
-import com.xyk.app.domian.User;
-import com.xyk.app.domian.UserYl;
+import com.xyk.app.domian.*;
 import com.xyk.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +21,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserYl userInfo(Long uid) {
-        return userDao.userInfo(uid);
+    public UserPension userInfo(Long uid) {
+        UserPension userPension = userDao.userInfo(uid);
+        if (null != userPension) {
+            userPension.pension = userDao.pension(uid);
+        }
+        return userPension;
     }
 
     @Override
@@ -45,9 +46,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveOrUpdate(UserYl user) {
-        if (null != user.id){
+        if (null != user.id) {
             userDao.update(user);
-        }else{
+        } else {
             userDao.save(user);
         }
     }
@@ -60,7 +61,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePension(List<Pension> pensions) {
         for (Pension item : pensions) {
-            userDao.updatePension(item);
+            if (null != item.id) {
+                userDao.updatePension(item);
+            } else {
+                userDao.savePension(item);
+            }
         }
     }
 }

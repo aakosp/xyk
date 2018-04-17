@@ -1,10 +1,7 @@
 package com.xyk.app.controller;
 
 import com.xyk.app.BaseResult;
-import com.xyk.app.domian.Admin;
-import com.xyk.app.domian.Pension;
-import com.xyk.app.domian.User;
-import com.xyk.app.domian.UserYl;
+import com.xyk.app.domian.*;
 import com.xyk.app.service.UserService;
 import com.xyk.app.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +30,7 @@ public class AdminController {
             String sessionKey = Base64Utils.encodeToString(origin.getBytes());
             Map<String, String> result = new HashMap<>(1);
             result.put("sessionId", sessionKey);
-            baseResult.t = result;
+            baseResult.data = result;
         } else {
             baseResult.code = "1";
             baseResult.msg = "用户名或密码错误";
@@ -56,8 +53,8 @@ public class AdminController {
 
     @RequestMapping(value = "/user/{uid}", method = RequestMethod.GET)
     public BaseResult user(@PathVariable("uid") Long uid) {
-        User user = userService.userInfo(uid);
-        BaseResult<UserYl> baseResult = new BaseResult(user);
+        UserPension user = userService.userInfo(uid);
+        BaseResult<UserPension> baseResult = new BaseResult(user);
         return baseResult;
     }
 
@@ -94,7 +91,7 @@ public class AdminController {
         } else {
             baseResult.code = "0";
             baseResult.msg = "操作成功";
-            baseResult.t = userService.pension(id);
+            baseResult.data = userService.pension(id);
         }
         return baseResult;
     }

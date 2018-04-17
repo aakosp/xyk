@@ -1,9 +1,6 @@
 package com.xyk.app.dao;
 
-import com.xyk.app.domian.Admin;
-import com.xyk.app.domian.Pension;
-import com.xyk.app.domian.User;
-import com.xyk.app.domian.UserYl;
+import com.xyk.app.domian.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,7 +11,7 @@ public interface UserDao {
 
     void delete(@Param("uid") Long uid);
 
-    UserYl userInfo(@Param("uid") Long uid);
+    UserPension userInfo(@Param("uid") Long uid);
 
     List<User> pageUser(@Param("page") Integer page);
 
@@ -26,5 +23,7 @@ public interface UserDao {
 
     List<Pension> pension(Long uid);
 
-    int updatePension(Pension pension);
+    void savePension(Pension pension);
+
+    void updatePension(Pension pension);
 }
