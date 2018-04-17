@@ -1,7 +1,9 @@
 package com.xyk.app.service;
 
 import com.xyk.app.domian.Admin;
+import com.xyk.app.domian.Pension;
 import com.xyk.app.domian.User;
+import com.xyk.app.domian.UserYl;
 
 import java.util.List;
 
@@ -9,13 +11,17 @@ public interface UserService {
 
     boolean login(Admin admin);
 
-    User user(Long uid);
+    UserYl userInfo(Long uid);
+
+    void delete(Long uid);
 
     List<User> search(String key);
 
     List<User> userPage(int page);
 
-    int save(User user);
+    void saveOrUpdate(UserYl user);
 
-    void update(User user);
+    List<Pension> pension(Long uid);
+
+    void updatePension(List<Pension> pensions);
 }

@@ -43,33 +43,42 @@ public class AdminController {
 
     @RequestMapping(value = "/user/page/{pageNum}", method = RequestMethod.GET)
     public BaseResult listUser(@PathVariable("pageNum") Integer pageNum) {
-        BaseResult baseResult = new BaseResult(pageNum);
+        List<User> users = userService.userPage(pageNum);
+        BaseResult<List<User>> baseResult = new BaseResult(users);
         return baseResult;
     }
 
     @RequestMapping(value = "/user/search/{key}", method = RequestMethod.GET)
     public BaseResult searchUser(@PathVariable("key") String key) {
-        BaseResult baseResult = new BaseResult(key);
+        BaseResult<List<User>> baseResult = new BaseResult(userService.search(key));
         return baseResult;
     }
 
     @RequestMapping(value = "/user/{uid}", method = RequestMethod.GET)
     public BaseResult user(@PathVariable("uid") Long uid) {
-        User user = userService.user(uid);
-        BaseResult baseResult = new BaseResult(user);
+        User user = userService.userInfo(uid);
+        BaseResult<UserYl> baseResult = new BaseResult(user);
         return baseResult;
     }
 
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
     public BaseResult updateUser(@RequestBody UserYl user) {
         BaseResult baseResult = new BaseResult();
-        baseResult.code = "0";
-        baseResult.msg = "操作成功";
+        if (null == user) {
+            baseResult.code = "1";
+            baseResult.msg = "参数为空";
+        } else {
+            userService.saveOrUpdate(user);
+            baseResult.code = "0";
+            baseResult.msg = "操作成功";
+        }
+
         return baseResult;
     }
 
     @RequestMapping(value = "/user/delete/{id}", method = RequestMethod.GET)
     public BaseResult deleteUser(@PathVariable("id") long id) {
+        userService.delete(id);
         BaseResult baseResult = new BaseResult();
         baseResult.code = "0";
         baseResult.msg = "操作成功";
@@ -77,15 +86,22 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/user/pension/{id}", method = RequestMethod.GET)
-    public BaseResult userPension(@PathVariable("id") long id) {
-        BaseResult baseResult = new BaseResult();
-        baseResult.code = "0";
-        baseResult.msg = "操作成功";
+    public BaseResult<List<Pension>> userPension(@PathVariable("id") Long id) {
+        BaseResult<List<Pension>> baseResult = new BaseResult();
+        if (null == id) {
+            baseResult.code = "1";
+            baseResult.msg = "参数为空";
+        } else {
+            baseResult.code = "0";
+            baseResult.msg = "操作成功";
+            baseResult.t = userService.pension(id);
+        }
         return baseResult;
     }
 
     @RequestMapping(value = "/user/pension/update", method = RequestMethod.POST)
     public BaseResult updateUserPension(@RequestBody List<Pension> pension) {
+        userService.updatePension(pension);
         BaseResult baseResult = new BaseResult();
         baseResult.code = "0";
         baseResult.msg = "操作成功";
