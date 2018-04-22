@@ -362,7 +362,7 @@
 ####7.创建/修改养老条目详情  
 
 >Method: GET  
->Path: /admin/user/pension/{id}  
+>Path: /admin/user/pension/update  
 >**返回数据描述:养老条目 ** 
 >
 >PS: 缴费合计=个人缴费+单位缴费  

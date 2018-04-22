@@ -25,6 +25,7 @@
         <result column="id_card" property="idCard"/>
         <result column="sex" property="sex"/>
         <result column="birthday" property="birthday"/>
+        <result column="company" property="company"/>
         <result column="expiry" property="expiry"/>
     </resultMap>
 
@@ -42,7 +43,7 @@
     <parameterMap id="Admin" type="com.xyk.app.domian.Admin"/>
 
     <sql id="user_column_List">
-		id, name, id_card, sex, birthday, expiry
+		id, name, id_card, sex, birthday, company, expiry
 	</sql>
 
     <sql id="useryl_column_List">
