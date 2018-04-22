@@ -1,26 +1,19 @@
 package com.xyk.app;
 
-import javax.servlet.annotation.WebFilter;
-
+import com.alibaba.fastjson.JSON;
 import com.xyk.app.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import com.alibaba.fastjson.JSON;
 
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 
@@ -29,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author bamboo zjcjava@163.com
  * @time 2017-08-01
  */
-//@Component
-//@WebFilter(urlPatterns = { "/admin/*" }, filterName = "tokenAuthorFilter")
+@Component
+@WebFilter(urlPatterns  = "/admin/user/*" , filterName = "tokenAuthorFilter")
 public class TokenAuthorFilter implements Filter {
 
     private static Logger logger = LoggerFactory

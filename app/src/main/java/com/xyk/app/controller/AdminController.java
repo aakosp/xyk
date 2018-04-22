@@ -1,11 +1,10 @@
 package com.xyk.app.controller;
 
 import com.xyk.app.BaseResult;
+import com.xyk.app.cache.Cache;
 import com.xyk.app.domian.*;
 import com.xyk.app.service.UserService;
-import com.xyk.app.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -27,10 +26,8 @@ public class AdminController {
         if (login) {
             baseResult.code = "0";
             baseResult.msg = "登陆成功";
-            String origin = admin.name + "a" + System.currentTimeMillis() + MD5Util.md5(admin.pwd);
-            String sessionKey = Base64Utils.encodeToString(origin.getBytes());
             Map<String, String> result = new HashMap<>(1);
-            result.put("sessionId", sessionKey);
+            result.put("sessionId", Cache.login(admin));
             baseResult.data = result;
         } else {
             baseResult.code = "1";
