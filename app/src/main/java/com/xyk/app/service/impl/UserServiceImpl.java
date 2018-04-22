@@ -40,8 +40,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> userPage(int page) {
-        return userDao.pageUser(page);
+    public Page<User> userPage(int page) {
+        int pageSize = 15;
+        if (page < 1){
+            page = 1;
+        }
+
+        int offset = (page-1) * pageSize;
+        Page<User> users = new Page<>();
+        users.totalPage = userDao.total();
+        users.pageSize = 15;
+        users.currentPage = page;
+        if (users.totalPage > 0 ){
+            users.totalPage = (long) Math.ceil(Double.valueOf(users.totalPage) / 15D);
+            users.data = userDao.pageUser(offset, 15);
+        }
+        return users;
     }
 
     @Override

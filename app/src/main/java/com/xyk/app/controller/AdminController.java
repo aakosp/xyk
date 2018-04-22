@@ -19,6 +19,7 @@ public class AdminController {
     @Autowired
     UserService userService;
 
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public BaseResult login(@RequestBody Admin admin) {
         BaseResult baseResult = new BaseResult();
@@ -39,9 +40,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/user/page/{pageNum}", method = RequestMethod.GET)
-    public BaseResult listUser(@PathVariable("pageNum") Integer pageNum) {
-        List<User> users = userService.userPage(pageNum);
-        BaseResult<List<User>> baseResult = new BaseResult(users);
+    public BaseResult<Page<User>> listUser(@PathVariable("pageNum") Integer pageNum) {
+        Page<User> users = userService.userPage(pageNum);
+        BaseResult<Page<User>> baseResult = new BaseResult(users);
         return baseResult;
     }
 

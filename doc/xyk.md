@@ -3,7 +3,7 @@
 
 >Method: POST  
 >Path: /login  
->参数:   id:登录id，pwd:密码MD5  
+>参数:   name:登录name，pwd:密码MD5  
 >**返回数据描述: sessionId**
 
 ```json
@@ -33,21 +33,26 @@
     "code": "0",
     "msg": "获取成功",
     "data": {
-        "page" : 1,
-        "total" : 5,
-        "user" : [{
-            "id": 1,
-            "name": "张三",
-            "idCard": "410181198801015052",
-            "company": "XXX责任有限公司",
-            "expiry": "2018-06-10"
-         },{
-            "id": 1,
-            "name": "张三",
-            "idCard": "410181198801015052",
-            "company": "XXX责任有限公司",
-            "expiry": "2018-06-10"
-         }]
+       "totalPage": 1,
+       "currentPage": 1,
+       "pageSize": 15,
+       "data": [{
+                  "id": 2,
+                  "name": "张三",
+                  "idCard": "410181198801015052",
+                  "sex": 0,
+                  "birthday": "1988-01-01",
+                  "company": "XXX责任有限公司",
+                  "expiry": 1528560000000
+                 },{
+                  "id": 5,
+                  "name": "申长伟",
+                  "idCard": "123",
+                  "sex": 1,
+                  "birthday": "2018-03-29",
+                  "company": "123",
+                  "expiry": 1525536000000
+                }]
     }
 }
 ```

@@ -13,7 +13,9 @@ public interface UserDao {
 
     UserPension userInfo(@Param("uid") Long uid);
 
-    List<User> pageUser(@Param("page") Integer page);
+    long total();
+
+    List<User> pageUser(@Param("offset")int offset, @Param("limit")int limit);
 
     List<User> search(@Param("key") String key);
 

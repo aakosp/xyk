@@ -14,7 +14,7 @@ public interface UserService {
 
     List<User> search(String key);
 
-    List<User> userPage(int page);
+    Page<User> userPage(int page);
 
     void saveOrUpdate(UserYl user);
 

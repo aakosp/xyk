@@ -82,11 +82,15 @@
         delete from sb_user where id = #{uid}
     </delete>
 
+    <select id="total" resultType="java.lang.Long">
+        select count(*) from sb_user
+    </select>
+
     <select id="pageUser" resultMap="UserResultMap" parameterType="java.lang.Integer">
         select
         <include refid="user_column_List"/>
         from sb_user order by id
-        limit #{firstRow}, #{pageSize}
+        OFFSET #{offset} limit #{limit}
     </select>
 
     <select id="search" resultMap="UserResultMap" parameterType="java.lang.String">
@@ -143,13 +147,13 @@
     <update id="updatePension" parameterType="com.xyk.app.domian.Pension">
         UPDATE pension
         <trim prefix="set" suffixOverrides=",">
-            <if test="pension.beginDate!=null">begin_date=#{ beginDate},</if>
-            <if test="pension.month!=null">month=#{ month},</if>
-            <if test="pension.paymentSelf!=null">payment_self=#{ paymentSelf},</if>
-            <if test="pension.paymentCompany!=null">payment_company=#{ paymentCompany},</if>
-            <if test="pension.paymentBase!=null">payment_base=#{ paymentBase},</if>
+            <if test="beginDate!=null">begin_date=#{ beginDate},</if>
+            <if test="month!=null">month=#{ month},</if>
+            <if test="paymentSelf!=null">payment_self=#{ paymentSelf},</if>
+            <if test="paymentCompany!=null">payment_company=#{ paymentCompany},</if>
+            <if test="paymentBase!=null">payment_base=#{ paymentBase},</if>
         </trim>
-        WHERE id=#{pension.id} and uid=#{pension.uid}
+        WHERE id=#{id} and uid=#{uid}
     </update>
 
     <delete id="delPension" parameterType="java.lang.Long">
