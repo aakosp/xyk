@@ -104,4 +104,13 @@ public class AdminController {
         baseResult.msg = "操作成功";
         return baseResult;
     }
+
+    @RequestMapping(value = "/user/pension/delete/{id}", method = RequestMethod.POST)
+    public BaseResult deleteUserPension(@PathVariable("id") Long id) {
+        userService.deletePension(id);
+        BaseResult baseResult = new BaseResult();
+        baseResult.code = "0";
+        baseResult.msg = "操作成功";
+        return baseResult;
+    }
 }

@@ -21,4 +21,6 @@ public interface UserService {
     List<Pension> pension(Long uid);
 
     void updatePension(List<Pension> pensions);
+
+    void deletePension(Long id);
 }

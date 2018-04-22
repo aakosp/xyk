@@ -26,4 +26,6 @@ public interface UserDao {
     void savePension(Pension pension);
 
     void updatePension(Pension pension);
+
+    void delPension(Long id);
 }

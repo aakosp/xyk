@@ -152,4 +152,8 @@
         WHERE id=#{pension.id} and uid=#{pension.uid}
     </update>
 
+    <delete id="delPension" parameterType="java.lang.Long">
+        delete from pension where id = #{id}
+    </delete>
+
 </mapper>

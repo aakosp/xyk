@@ -390,6 +390,22 @@
 
 
 
+####8.删除养老条目  
+
+>Method: GET  
+>Path: /user/pension/delete/{id}  
+>**返回数据描述:修改结果 ** 
+
+```json
+{
+    "code": "0",
+    "msg": "获取成功",
+    "data": null
+}
+```
+
+
+
 ###code值说明  
 
 | code值 | 描述        |

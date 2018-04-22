@@ -68,4 +68,9 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+
+    @Override
+    public void deletePension(Long id) {
+        userDao.delete(id);
+    }
 }
